@@ -1,0 +1,50 @@
+/* Orange theme on top of Bootstrap (dark mode) */
+:root {
+  --bs-primary: #f97316;
+  --bs-primary-rgb: 249, 115, 22;
+  --bs-link-color: #f97316;
+  --bs-link-color-rgb: 249, 115, 22;
+  --bs-link-hover-color: #fb923c;
+  --bs-link-hover-color-rgb: 251, 146, 60;
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: #0b0b0f;
+  --bs-body-bg-rgb: 11, 11, 15;
+}
+
+.card {
+  --bs-card-bg: #16161a;
+}
+
+.btn-primary {
+  --bs-btn-bg: #f97316;
+  --bs-btn-border-color: #f97316;
+  --bs-btn-hover-bg: #ea580c;
+  --bs-btn-hover-border-color: #ea580c;
+  --bs-btn-active-bg: #c2410c;
+  --bs-btn-active-border-color: #c2410c;
+  --bs-btn-disabled-bg: #f97316;
+  --bs-btn-disabled-border-color: #f97316;
+  --bs-btn-color: #fff;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-color: #fff;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #f97316;
+  --bs-btn-border-color: #f97316;
+  --bs-btn-hover-bg: #f97316;
+  --bs-btn-hover-border-color: #f97316;
+  --bs-btn-active-bg: #ea580c;
+  --bs-btn-active-border-color: #ea580c;
+}
+
+.progress-bar {
+  background-color: #f97316;
+}
+
+.dish-img {
+  height: 180px;
+  object-fit: cover;
+}
