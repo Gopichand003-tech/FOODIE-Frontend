@@ -15,9 +15,15 @@ npm run build
 
 - `/login`, `/signup` – account (all other pages need login)
 - `/` – home
-- `/menu` – full menu, add to cart
+- `/menu` – full menu with search, category / veg filters, sorting, add to cart
+- `/favorites` – dishes you've hearted
 - `/track` – live order status (pending → confirmed → cooking → out for delivery → delivered)
-- `/history` – delivered orders
+- `/history` – delivered orders, with a Reorder button
+
+## Coupons
+
+`FIRST50` (50% off first order, max ₹150), `SAVE100` (₹100 off above ₹500), `FREEDEL` (free delivery).
+Delivery is ₹40 (free above ₹399) and GST is 5%. Rules live in `src/utils/pricing.js`.
 
 ## Folder structure
 
@@ -25,8 +31,9 @@ npm run build
 src/
   App.jsx          routes
   components/      Layout, AppNavbar, Footer, Cart, DishCard, AuthLayout, ProtectedRoute
-  context/         AuthContext, CartContext
+  context/         AuthContext, CartContext, FavoritesContext, ToastContext
   data/menu.js     menu items
-  pages/           Home, Menu, Login, Signup, Track, History
+  pages/           Home, Menu, Favorites, Login, Signup, Track, History
+  utils/pricing.js coupons + bill calculation
   services/        localStorage auth + orders
 ```

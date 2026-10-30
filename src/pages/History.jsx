@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { Container, Card } from "react-bootstrap";
-import { CheckCircle, MapPin, Phone } from "lucide-react";
+import { Container, Card, Button } from "react-bootstrap";
+import { CheckCircle, MapPin, Phone, RotateCcw } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { useCart } from "../context/CartContext";
+import { useToast } from "../context/ToastContext";
 import { getHistory } from "../services/orderService";
 
 export default function History() {
   const { user } = useAuth();
+  const { addItems, setOpen } = useCart();
+  const toast = useToast();
   const [orders, setOrders] = useState(() => getHistory(user.id));
 
   // refresh so an order that just finished shows up
@@ -13,6 +17,12 @@ export default function History() {
     const interval = setInterval(() => setOrders(getHistory(user.id)), 2000);
     return () => clearInterval(interval);
   }, [user.id]);
+
+  const reorder = (order) => {
+    addItems(order.items);
+    toast.show("Items from your past order added to cart");
+    setOpen(true);
+  };
 
   return (
     <Container className="py-4">
@@ -37,6 +47,13 @@ export default function History() {
             <p className="text-secondary small mb-0"><Phone size={14} /> {order.phone}</p>
             <p className="text-secondary small mb-0">{new Date(order.createdAt).toLocaleString()}</p>
             <p className="text-success small fw-semibold mb-0 mt-1"><CheckCircle size={14} /> Delivered</p>
+            {order.couponCode && (
+              <p className="text-secondary small mb-0">Coupon used: {order.couponCode}</p>
+            )}
+
+            <Button variant="outline-primary" size="sm" className="mt-3" onClick={() => reorder(order)}>
+              <RotateCcw size={14} /> Reorder
+            </Button>
           </Card.Body>
         </Card>
       ))}

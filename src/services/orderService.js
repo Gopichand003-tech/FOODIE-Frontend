@@ -31,7 +31,7 @@ function statusFor(order) {
 
 const withStatus = (order) => ({ ...order, status: statusFor(order) });
 
-export function createOrder({ userId, items, total, address, phone, payment }) {
+export function createOrder({ userId, items, total, address, phone, payment, bill, couponCode }) {
   if (!userId) throw new Error("You must be logged in to place an order.");
   if (!items || items.length === 0) throw new Error("Items required");
   if (!total || !address || !phone) throw new Error("Missing fields");
@@ -44,6 +44,8 @@ export function createOrder({ userId, items, total, address, phone, payment }) {
     address,
     phone,
     payment,
+    bill: bill || null,
+    couponCode: couponCode || null,
     status: "pending",
     createdAt: new Date().toISOString(),
   };
@@ -51,6 +53,11 @@ export function createOrder({ userId, items, total, address, phone, payment }) {
   writeOrders([...readOrders(), order]);
   localStorage.setItem(currentKey(userId), order._id);
   return withStatus(order);
+}
+
+// Has this user ever placed an order? (used for first-order coupons)
+export function hasOrders(userId) {
+  return readOrders().some((o) => o.userId === userId);
 }
 
 export function getOrder(id) {

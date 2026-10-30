@@ -3,10 +3,12 @@ import { Navbar, Nav, Container, Button, Badge } from "react-bootstrap";
 import { ShoppingCart, Flame, LogOut, User } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import { useFavorites } from "../context/FavoritesContext";
 
 export default function AppNavbar() {
   const { user, logout } = useAuth();
   const { count, setOpen } = useCart();
+  const { ids } = useFavorites();
 
   return (
     <Navbar expand="md" sticky="top" bg="dark" data-bs-theme="dark" className="border-bottom border-secondary">
@@ -23,6 +25,9 @@ export default function AppNavbar() {
   <Nav className="mx-auto gap-md-4">
     <Nav.Link as={NavLink} to="/" end>Home</Nav.Link>
     <Nav.Link as={NavLink} to="/menu">Menu</Nav.Link>
+    <Nav.Link as={NavLink} to="/favorites">
+      Favorites{ids.length > 0 && <Badge bg="secondary" className="ms-1">{ids.length}</Badge>}
+    </Nav.Link>
     <Nav.Link as={NavLink} to="/track">Track</Nav.Link>
     <Nav.Link as={NavLink} to="/history">History</Nav.Link>
   </Nav>

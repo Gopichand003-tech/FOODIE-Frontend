@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
+import { ToastProvider } from "./context/ToastContext";
+import { FavoritesProvider } from "./context/FavoritesContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import Login from "./pages/Login";
@@ -9,10 +11,13 @@ import Home from "./pages/Home";
 import Menu from "./pages/Menu";
 import Track from "./pages/Track";
 import History from "./pages/History";
+import Favorites from "./pages/Favorites";
 
 export default function App() {
   return (
     <AuthProvider>
+      <ToastProvider>
+      <FavoritesProvider>
       <CartProvider>
         <BrowserRouter>
           <Routes>
@@ -24,6 +29,7 @@ export default function App() {
               <Route element={<Layout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/menu" element={<Menu />} />
+                <Route path="/favorites" element={<Favorites />} />
                 <Route path="/track" element={<Track />} />
                 <Route path="/history" element={<History />} />
               </Route>
@@ -33,6 +39,8 @@ export default function App() {
           </Routes>
         </BrowserRouter>
       </CartProvider>
+      </FavoritesProvider>
+      </ToastProvider>
     </AuthProvider>
   );
 }
